@@ -4,11 +4,13 @@ package Model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by wweqqful on 8/12/16.
  */
 
-public class MovieEntity {
+public class MovieEntity implements Serializable {
 
     // Constants
     private final String POSTER_PATH = "poster_path";

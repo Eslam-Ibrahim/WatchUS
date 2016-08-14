@@ -1,5 +1,6 @@
 package com.mal.wweqqful.watchus;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,7 +10,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MovieMainActivity extends AppCompatActivity {
+import Model.MovieEntity;
+import Model.onMovieClickListener;
+
+public class MovieMainActivity extends AppCompatActivity implements onMovieClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +21,12 @@ public class MovieMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if(null==savedInstanceState){
+            MovieMainActivityFragment moviesDisplayFragment = new MovieMainActivityFragment();
+            moviesDisplayFragment.movieClickListener(this);
+            getSupportFragmentManager().beginTransaction().add(R.id.mainFragment, moviesDisplayFragment).commit();
+        }
     }
 
     @Override
@@ -39,5 +49,14 @@ public class MovieMainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void targetMovieLoader(MovieEntity targetMovie) {
+
+        // Load target movie
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        intent.putExtra("targetMovie", targetMovie);
+        startActivity(intent);
     }
 }

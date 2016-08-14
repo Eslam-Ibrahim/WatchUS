@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 
 import Model.MovieEntity;
 import Model.MovieGridAdapter;
+import Model.onMovieClickListener;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -38,6 +40,7 @@ public class MovieMainActivityFragment extends Fragment {
     private MovieGridAdapter moviesAdapter;
     private ArrayList<MovieEntity> moviesList;
     private MoviesFetcher moviesGridFercher;
+    private onMovieClickListener movieClickListener;
 
 
     public MovieMainActivityFragment() {
@@ -50,7 +53,22 @@ public class MovieMainActivityFragment extends Fragment {
         moviesGridView = (GridView) rootView.findViewById(R.id.moviegridView);
         moviesAdapter = new MovieGridAdapter(getActivity());
         moviesGridView.setAdapter(moviesAdapter);
+
+        // Listen to movie click
+        moviesGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                int targetTndx = (int) moviesAdapter.getItemId(position);
+                Toast.makeText(getActivity(),"title: "+moviesList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
+                movieClickListener.targetMovieLoader(moviesList.get(position));
+            }
+        });
+
         return  rootView;
+    }
+
+    public void movieClickListener(onMovieClickListener movieClickListener){
+        this.movieClickListener = movieClickListener;
     }
 
     @Override
