@@ -36,11 +36,10 @@ public class MovieDetailsActivityFragment extends Fragment implements Serializab
         Intent intent = getActivity().getIntent();
         targetMovie = (MovieEntity) intent.getSerializableExtra("targetMovie");
 
-        Bundle extras = this.getArguments();
-        if(!extras.getSerializable("targetMovie").equals(null)) {
-            System.out.println("lastTest: ");
-            targetMovie = (MovieEntity) extras.getSerializable("targetMovie");
-        }
+//        Bundle extras = this.getArguments();
+//        if(!extras.getSerializable("targetMovie").equals(null)) {
+//            targetMovie = (MovieEntity) extras.getSerializable("targetMovie");
+//        }
 
         // Load movie details into the view
         movieDetailsViewer.showMovie(targetMovie , rootView.getContext());

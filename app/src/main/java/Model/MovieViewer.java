@@ -119,7 +119,7 @@ public class MovieViewer implements Serializable{
         movieTitle.setText(targetMovie.getTitle());
         movieOverview.setText(targetMovie.getOverview());
         movieReleaseDate.setText(targetMovie.getReleaseDate());
-        voteNum.setText(" rate :" + targetMovie.getVoteAvg() + "/10");
+        voteNum.setText("Rate: " + targetMovie.getVoteAvg() + "/10");
         voteAvg.setNumStars(5);
         voteAvg.setStepSize(1 / 5);
         voteAvg.setRating((float) targetMovie.getVoteAvg() / 2);
