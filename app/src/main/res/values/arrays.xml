@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_movList_options">
+                <item>@string/pref_movList_label_popularMov</item>
+                <item>@string/pref_movList_label_top</item>
+            </string-array>
+
+        <string-array name="pref_movList_values">
+            <item>@string/pref_movList_pops</item>
+            <item>@string/pref_movList_top</item>
+        </string-array>
+
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    >
+    <ListPreference
+            android:title="@string/pref_movList_label"
+            android:key="@string/pref_movList_key"
+            android:defaultValue="@string/pref_movList_pops"
+            android:entryValues="@array/pref_movList_values"
+            android:entries="@array/pref_movList_options" />
+</PreferenceScreen>

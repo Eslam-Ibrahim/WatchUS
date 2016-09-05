@@ -1,11 +1,14 @@
 package com.mal.wweqqful.watchus;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -46,6 +49,32 @@ public class MovieMainActivityFragment extends Fragment {
     public MovieMainActivityFragment() {
     }
 
+
+    public void loadMoviesList(){
+        moviesList = new ArrayList<>();
+        moviesGridFercher = new MoviesFetcher();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String movListChoice = prefs.getString(getString(R.string.pref_movList_key),
+                getString(R.string.pref_movList_pops));
+
+        System.out.println("type= " + movListChoice);
+//        if(type.equals("favorite")){
+//            System.out.println("type= " + type);
+//            MoviesDB moviesDB= new MoviesDB(getActivity());
+//            SQLiteDatabase sqLiteDatabase=moviesDB.getWritableDatabase();
+//            finalMoviesList=moviesDB.getAllMovies();
+//            ArrayList<String> moviesImagesList =new ArrayList<>();
+//            for(int i=0;i<finalMoviesList.size();i++){
+//                moviesImagesList.add(finalMoviesList.get(i).getPosterPath());
+//            }
+//            imageAdapter.setData(moviesImagesList);
+//            moviesGridView.setAdapter(imageAdapter);
+//        }
+
+//        else
+        moviesGridFercher.execute(movListChoice);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,6 +96,19 @@ public class MovieMainActivityFragment extends Fragment {
         return  rootView;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id=item.getItemId();
+        if(id==R.id.action_settings){
+            loadMoviesList();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+
+
     public void movieClickListener(onMovieClickListener movieClickListener){
         this.movieClickListener = movieClickListener;
     }
@@ -74,25 +116,26 @@ public class MovieMainActivityFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        moviesList = new ArrayList<>();
-        moviesGridFercher = new MoviesFetcher();
-        moviesGridFercher.execute();
+        loadMoviesList();
+
     }
 
     // Movies Retrieval AsyncTask Inner Class
-    public class MoviesFetcher extends AsyncTask<Void, Void, String> {
+    public class MoviesFetcher extends AsyncTask<String, Void, String> {
 
         // Constants
         private final String LOG_TAG = MoviesFetcher.class.getSimpleName();
-        private final String BASE_URL = "https://api.themoviedb.org/3/movie/popular?";
+        private  String BASE_URL = "https://api.themoviedb.org/3/movie/";
+
         private final String APPID_PARAM = "api_key";
         @Override
-        protected String doInBackground(Void... voids) {
+        protected String doInBackground(String... params) {
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
             String moviesJsonString = null;
 
             try {
+                BASE_URL += params[0] + "?";
                 Uri builtUri = Uri.parse(BASE_URL).buildUpon()
                         .appendQueryParameter(APPID_PARAM, BuildConfig.Movie_DB_ApiKey)
                         .build();
