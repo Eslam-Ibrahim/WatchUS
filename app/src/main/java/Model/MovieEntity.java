@@ -28,7 +28,7 @@ public class MovieEntity implements Serializable {
     private String overview;
     private String releaseDate;
     private double voteAvg;
-    private int ID;
+    private String ID;
     private String backDropPath;
 
     // Constructors
@@ -39,11 +39,11 @@ public class MovieEntity implements Serializable {
         overview = "";
         releaseDate = "";
         voteAvg = 0.0;
-        ID = -1;
+        ID = "";
         backDropPath = "";
     }
 
-    public MovieEntity(String title, String posterImgPath, String overview, String releaseDate, double voteAvg, int ID,
+    public MovieEntity(String title, String posterImgPath, String overview, String releaseDate, double voteAvg, String ID,
            String backDropPath) {
         this.title = title;
         this.posterImgPath = posterImgPath;
@@ -60,7 +60,7 @@ public class MovieEntity implements Serializable {
         overview = dataJson.getString(OVERVIEW);
         releaseDate = dataJson.getString(RELEASE_DATE);
         voteAvg = dataJson.getDouble(VOTE_AVG);
-        ID = dataJson.getInt(MID);
+        ID = dataJson.getString(MID);
         backDropPath = dataJson.getString(BACK_DROP_PATH);
     }
 
@@ -106,11 +106,11 @@ public class MovieEntity implements Serializable {
         this.voteAvg = voteAvg;
     }
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 

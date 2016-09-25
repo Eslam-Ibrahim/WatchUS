@@ -1,13 +1,16 @@
 package Model;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mal.wweqqful.watchus.MovieReviewActivity;
 import com.mal.wweqqful.watchus.R;
 import com.squareup.picasso.Picasso;
 
@@ -27,11 +30,13 @@ public class MovieViewer implements Serializable{
     private RatingBar voteAvg;
     private TextView voteNum;
     private ImageButton favButton;
+    private Button movieReviewsBtn;
 
     // Constructors
 
     public MovieViewer(ImageView moviePoster, TextView movieTitle, TextView movieOverview,
-                       TextView movieReleaseDate, RatingBar voteAvg, TextView voteNum, ImageButton favButton) {
+                       TextView movieReleaseDate, RatingBar voteAvg, TextView voteNum, ImageButton favButton,
+                       Button movieReviewsBtn) {
         this.moviePoster = moviePoster;
         this.movieTitle = movieTitle;
         this.movieOverview = movieOverview;
@@ -39,6 +44,7 @@ public class MovieViewer implements Serializable{
         this.voteAvg = voteAvg;
         this.voteNum = voteNum;
         this.favButton = favButton;
+        this.movieReviewsBtn = movieReviewsBtn;
     }
 
     public MovieViewer(View movieView) {
@@ -49,7 +55,7 @@ public class MovieViewer implements Serializable{
         voteAvg = (RatingBar) movieView.findViewById(R.id.vote_average);
         voteNum = (TextView) movieView.findViewById(R.id.voteNum);
         favButton = (ImageButton) movieView.findViewById(R.id.favButn);
-
+        movieReviewsBtn = (Button) movieView.findViewById(R.id.movieReviewsBtn);
     }
 
     // Setters and Getters
@@ -112,7 +118,7 @@ public class MovieViewer implements Serializable{
 
 
     // Public Methods
-    public void showMovie(MovieEntity targetMovie, final Context contxtOfMovieView) {
+    public void showMovie(final MovieEntity targetMovie, final Context contxtOfMovieView) {
 
         Picasso.with(contxtOfMovieView).load("https://image.tmdb.org/t/p/w300"
                 + targetMovie.getPosterImgPath()).into(moviePoster);
@@ -132,6 +138,17 @@ public class MovieViewer implements Serializable{
                  */
                 Toast.makeText(contxtOfMovieView, "Fav Button Clicked!",
                         Toast.LENGTH_LONG).show();
+            }
+        });
+        movieReviewsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*
+                   Redirect user to movie reviews activity
+                 */
+                Intent intent = new Intent(contxtOfMovieView, MovieReviewActivity.class);
+                intent.putExtra("target_movie_id",targetMovie.getID());
+                contxtOfMovieView.startActivity(intent);
             }
         });
     }

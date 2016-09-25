@@ -5,16 +5,16 @@
     <string name="title_activity_settings">Settings</string>
 
 
-
     <string name="pref_movList_label">Movie List Option</string>
 
-        <string name="pref_movList_label_popularMov">Popular Movies</string>
+    <string name="pref_movList_label_popularMov">Popular Movies</string>
 
-        <string name="pref_movList_label_top">Top Ranked Movies</string>
+    <string name="pref_movList_label_top">Top Ranked Movies</string>
 
-        <string name="pref_movList_key" translatable="false">movListChoice</string>
+    <string name="pref_movList_key" translatable="false">movListChoice</string>
 
-        <string name="pref_movList_pops" translatable="false">popular</string>
+    <string name="pref_movList_pops" translatable="false">popular</string>
 
-        <string name="pref_movList_top" translatable="false">top_rated</string>
+    <string name="pref_movList_top" translatable="false">top_rated</string>
+    <string name="title_activity_movie_review">Movie Reviews</string>
 </resources>

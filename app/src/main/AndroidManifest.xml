@@ -29,11 +29,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mal.wweqqful.watchus.MovieMainActivity" />
         </activity>
-
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MovieMainActivity" >
+            android:parentActivityName=".MovieMainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mal.wweqqful.watchus.MovieMainActivity" />
+        </activity>
+        <activity
+            android:name=".MovieReviewActivity"
+            android:label="@string/title_activity_movie_review"
+            android:parentActivityName=".MovieMainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mal.wweqqful.watchus.MovieMainActivity" />
