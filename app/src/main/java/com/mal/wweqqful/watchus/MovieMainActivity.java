@@ -9,11 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import Model.MovieEntity;
 import Model.onMovieClickListener;
 
 public class MovieMainActivity extends AppCompatActivity implements onMovieClickListener {
+
+    boolean isTablet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +24,18 @@ public class MovieMainActivity extends AppCompatActivity implements onMovieClick
         setContentView(R.layout.activity_movie_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        FrameLayout tabletPanelTwo= (FrameLayout) findViewById(R.id.paneltwo);
+        if(null == tabletPanelTwo){
+            isTablet = false;
+        }else{
+            isTablet = true;
+        }
+
 
         if(null==savedInstanceState){
             MovieMainActivityFragment moviesDisplayFragment = new MovieMainActivityFragment();
             moviesDisplayFragment.movieClickListener(this);
-            getSupportFragmentManager().beginTransaction().add(R.id.mainFragment, moviesDisplayFragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.panelone, moviesDisplayFragment).commit();
         }
     }
 
@@ -56,8 +66,18 @@ public class MovieMainActivity extends AppCompatActivity implements onMovieClick
     public void targetMovieLoader(MovieEntity targetMovie) {
 
         // Load target movie
+        if(isTablet){
+            System.out.println("tablet: "+targetMovie.getTitle());
+            MovieDetailsActivityFragment movieDetailsFragment= new MovieDetailsActivityFragment();
+            Bundle extras = new Bundle();
+            extras.putSerializable("targetMovie",targetMovie);
+            movieDetailsFragment.setArguments(extras);
+            getSupportFragmentManager().beginTransaction().replace(R.id.paneltwo, movieDetailsFragment).commit();
+
+        }else {
         Intent intent = new Intent(this, MovieDetailsActivity.class);
         intent.putExtra("targetMovie", targetMovie);
         startActivity(intent);
+        }
     }
 }
